@@ -8,7 +8,7 @@ done
 
 echo "echo-app is live"
 
-status=`curl -s -o -k /dev/null -w "%{http_code}" localhost:300$1`
+status=`curl -s -o /dev/null -w "%{http_code}" localhost:300$1`
 echo "curl to echo-app returned:"
 echo $status
 
