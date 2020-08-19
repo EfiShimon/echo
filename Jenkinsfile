@@ -11,7 +11,7 @@ pipeline
                 {
                     echo "current branch: ${env.BRANCH_NAME}"
                     echo "building project"
-                    docker.build("--tag echo .")                 
+                    sh "docker build --tag echoapp ."
                     echo "Finished building on branch: ${env.BRANCH_NAME} "
                 }                
             } 
