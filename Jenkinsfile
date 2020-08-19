@@ -59,7 +59,7 @@ pipeline
             steps {
                 script
                 {
-                    withCredentials([ file( credentialsId: 'echo-reg-key', variable: 'gcr-key-file')]) 
+                    withCredentials([ file( credentialsId: 'echo-app-final', variable: 'gcr-key-file')]) 
                     {
                         //gcr-key = sh "cat ${gcr-key-file}"
                         sh "cat $gcr-key-file | docker login -u _json_key --password-stdin https://gcr.io"
