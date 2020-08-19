@@ -61,8 +61,8 @@ pipeline
                 {
                     withCredentials([ file( credentialsId: 'echo', variable: 'gcr-key-file')]) 
                     {
-                        gcr-key = sh "cat ${gcr-key-file}"
-                        sh "docker login -u _json_key -p ${gcr-key} https://gcr.io"
+                        //gcr-key = sh "cat ${gcr-key-file}"
+                        sh "docker login -u _json_key -p $gcr-key-file https://gcr.io"
                             
                         if(env.BRANCH_NAME.contains("master"))
                         {
