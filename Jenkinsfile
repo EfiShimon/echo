@@ -9,7 +9,7 @@ pipeline
             {
                 script
                 {
-                    echo "current branch: ${env.BRANCH_NAME}"
+                    echo "current branch: ${env.BRANCH_NAME} "
                     echo "building project"
                     sh "docker build --tag echoapp ."
                     echo "Finished building on branch: ${env.BRANCH_NAME} "
