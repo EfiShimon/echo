@@ -1,6 +1,5 @@
 pipeline
-{
-    
+{  
     agent any
     stages
     {             
@@ -18,7 +17,7 @@ pipeline
             } 
         }
         
-         stage('Test')
+        stage('Test')
         {
             steps 
             {
@@ -30,35 +29,33 @@ pipeline
                 echo "Finished building on branch: ${env.BRANCH_NAME} "
             } 
         }
-   
+  
         stage('Deploy')
         {
             steps 
             {
                 script
-                {
-                    script
-                {
+                {                                    
                     if(env.BRANCH_NAME.contains("master"))
                     {
                         docker.withRegistry('https://gcr.io', "gcr:echo")
-                    {
-                        Img.push("1.0.${env.BUILD_NUMBER}") 
-                    }                    
+                        {
+                            Img.push("1.0.${env.BUILD_NUMBER}") 
+                        }                    
                     }
                     else if(env.BRANCH_NAME.contains("dev"))
                     {
                         docker.withRegistry('https://gcr.io', "gcr:echo")
-                    {
-                        Img.push("dev-${env.GIT_COMMIT}") 
-                    }                    
+                        {
+                            Img.push("dev-${env.GIT_COMMIT}") 
+                        }                    
                     }
                     else if(env.BRANCH_NAME.contains("staging"))
                     {
                         docker.withRegistry('https://gcr.io', "gcr:echo")
-                    {
-                        Img.push("staging:${env.GIT_COMMIT}") 
-                    }                    
+                        {
+                            Img.push("staging:${env.GIT_COMMIT}") 
+                        }                    
                     }
  
                 }
