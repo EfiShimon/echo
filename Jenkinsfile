@@ -54,7 +54,7 @@ pipeline
                     {
                         docker.withRegistry('https://gcr.io', "gcr:echo")
                         {
-                            Img.push("staging:${env.GIT_COMMIT}") 
+                            Img.push("staging-${env.GIT_COMMIT}") 
                         }                    
                     }
  
