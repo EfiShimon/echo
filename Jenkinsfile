@@ -59,17 +59,22 @@ pipeline
             steps {
                 script
                 {
-                    if(env.BRANCH_NAME.contains("master"))
+                    withCredentials([ string( credentialsId: 'echo', variable: 'gcr-key')]) 
                     {
-                        sh "docker push gcr.io/echo-app-final/echo:1.0.${env.BUILD_NUMBER}"
-                    }
-                    else if(env.BRANCH_NAME.contains("dev"))
-                    {
-                        sh "docker push gcr.io/echo-app-final/echo:dev-${env.GIT_COMMIT}"
-                    }
-                    else if(env.BRANCH_NAME.contains("staging"))
-                    {
-                        sh "docker push gcr.io/echo-app-final/echo:staging-${env.GIT_COMMIT}"
+                        sh "docker login -u _json_key -p ${gcr-key} https://gcr.io"
+                            
+                        if(env.BRANCH_NAME.contains("master"))
+                        {
+                            sh "docker push gcr.io/echo-app-final/echo:1.0.${env.BUILD_NUMBER}"
+                        }
+                        else if(env.BRANCH_NAME.contains("dev"))
+                        {
+                            sh "docker push gcr.io/echo-app-final/echo:dev-${env.GIT_COMMIT}"
+                        }
+                        else if(env.BRANCH_NAME.contains("staging"))
+                        {
+                            sh "docker push gcr.io/echo-app-final/echo:staging-${env.GIT_COMMIT}"
+                        }
                     }
                 }
             } 
