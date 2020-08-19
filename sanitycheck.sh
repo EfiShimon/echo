@@ -2,13 +2,13 @@
 
 opened=0
 
-while ! nc -z localhost 3000$1; do   
+while ! nc -z localhost 300$1; do   
   sleep 1 # wait for 1 second before check again
 done
 
 echo "echo-app is live"
 
-status=`curl -s -o -k /dev/null -w "%{http_code}" localhost:3000$1`
+status=`curl -s -o -k /dev/null -w "%{http_code}" localhost:300$1`
 echo "curl to echo-app returned:"
 echo $status
 

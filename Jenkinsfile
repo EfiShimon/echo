@@ -75,4 +75,12 @@ pipeline
             } 
         }
     }    
+
+    post
+    {
+        always
+        {                                                                  
+            sh "docker stop echoapp-${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+        }
+
 }    
