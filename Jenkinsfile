@@ -1,5 +1,6 @@
 pipeline
 {
+    
     agent any
     stages
     {             
@@ -29,42 +30,37 @@ pipeline
                 echo "Finished building on branch: ${env.BRANCH_NAME} "
             } 
         }
-      /*  
-        stage("Publish")
-        {
-            steps 
-            {            
-                script
-                {
-                    if(env.BRANCH_NAME.contains("master"))
-                    {
-                        sh "docker tag echoapp gcr.io/echo-app-final/echo:1.0.${env.BUILD_NUMBER}"
-                    }
-                    else if(env.BRANCH_NAME.contains("dev"))
-                    {
-                        sh "docker tag echoapp gcr.io/echo-app-final/echo:dev-${env.GIT_COMMIT}"
-                    }
-                    else if(env.BRANCH_NAME.contains("staging"))
-                    {
-                        sh "docker tag echoapp gcr.io/echo-app-final/echo:staging-${env.GIT_COMMIT}"
-                    }
-
-                }
-
-            } 
-        }
-        */
+   
         stage('Deploy')
         {
             steps 
             {
                 script
                 {
-                    docker.withRegistry('https://gcr.io', "gcr:echo")
+                    script
+                {
+                    if(env.BRANCH_NAME.contains("master"))
+                    {
+                        docker.withRegistry('https://gcr.io', "gcr:echo")
                     {
                         Img.push("1.0.${env.BUILD_NUMBER}") 
+                    }                    
                     }
-                    
+                    else if(env.BRANCH_NAME.contains("dev"))
+                    {
+                        docker.withRegistry('https://gcr.io', "gcr:echo")
+                    {
+                        Img.push("dev-${env.GIT_COMMIT}") 
+                    }                    
+                    }
+                    else if(env.BRANCH_NAME.contains("staging"))
+                    {
+                        docker.withRegistry('https://gcr.io', "gcr:echo")
+                    {
+                        Img.push("staging:${env.GIT_COMMIT}") 
+                    }                    
+                    }
+ 
                 }
             } 
         }
