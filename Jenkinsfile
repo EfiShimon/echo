@@ -23,7 +23,7 @@ pipeline
             {
                  echo "current branch: ${env.BRANCH_NAME}"                 
                  echo "runing docker image"
-                 sh "docker run --rm --name echo-${env.BRANCH_NAME}-${env.BUILD_NUMBER} -p 3000:3000 echoapp"
+                 sh "docker run --rm -d --name echo-${env.BRANCH_NAME}-${env.BUILD_NUMBER} -p 3000:3000 echoapp"
                  sh "chmod +x sanitycheck.sh"
                  sh "./sanitycheck.sh"
                  echo "Finished building on branch: ${env.BRANCH_NAME} "
