@@ -61,6 +61,7 @@ pipeline
                 {
                     withCredentials([ file( credentialsId: 'echo-app-final', variable: 'GCR')]) 
                     {
+                        sh "docker logout"
                         sh(returnStdout: true, script: "cat ${GCR}") 
                         sh "docker login -u _json_key --password-stdin https://gcr.io"
                             
