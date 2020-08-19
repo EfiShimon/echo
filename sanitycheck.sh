@@ -1,7 +1,7 @@
 #!/bin/bash
 
 opened=0
-
+sleep 4
 while ! nc -z localhost 300$1; do   
   sleep 1 # wait for 1 second before check again
 done
